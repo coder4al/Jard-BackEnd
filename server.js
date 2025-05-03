@@ -1,17 +1,22 @@
 import express from "express";
-import cors from 'cors';
-import 'dotenv/config';
+import cors from "cors";
+import "dotenv/config";
+import connectDb from "./config/mongodb.js";
 
-const app = express()
-const port = process.env.PORT || 4000
+// app config
+const app = express();
+const port = process.env.PORT || 4000;
+connectDb();
 
-app.use(express.json())
-app.use(cors)
+// middlewares
+app.use(express.json());
+app.use(cors());
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+// api endpoints
+app.get("/", (req, res) => {
+  res.send("API Alive");
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`App listening on port ${port}`);
+});
