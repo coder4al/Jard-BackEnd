@@ -63,8 +63,9 @@ const loginUser = async (req, res) => {
     }
   } catch (error) {
     console.error("Error during user login: ", error);
+
     res.json({ success: false, message: error.message });
   }
 };
-
 export { registerUser, loginUser };
+
