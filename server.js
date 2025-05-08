@@ -4,6 +4,7 @@ import "dotenv/config";
 import connectDb from "./config/mongodb.js";
 import connectCloudinary from './config/cloudinary.js';
 import adminRouter from "./routes/adminRoute.js";
+import doctorRouter from "./routes/doctorRoute.js";
 
 
 // app config
@@ -20,7 +21,8 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("API Alive");
 });
-app.use('/api/admin/', adminRouter)
+app.use('/api/admin', adminRouter)
+app.use('/api/doctor', doctorRouter)
 
 
 app.listen(port, () => {
