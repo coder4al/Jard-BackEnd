@@ -73,7 +73,7 @@ const loginUser = async (req, res) => {
 // API to get user profile data
 const getProfile = async (req, res) => {
   try {
-    const { userId } = req.body;
+    const userId = req.user.id;
     const userData = await userModel.findById(userId).select("password");
     res.json({ success: true, userData });
   } catch (error) {
@@ -142,7 +142,7 @@ const bookAppointment = async (req, res) => {
       slots_booked[slotDate].push(slotTime);
     }
 
-    const userData = await userModel.findById(useId).select("-password");
+    const userData = await userModel.findById(userId).select("-password");
 
     delete docData.slots_booked;
 
