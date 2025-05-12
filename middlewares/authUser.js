@@ -12,7 +12,10 @@ const authUser = async (req, res, next) => {
     }
 
     const token_decode = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = token_decode.id;
+
+    if (!req.body) req.body = {};
+    
+    req.body.userId = token_decode.id;
     next();
   } catch (error) {
     console.error("Error during admin authentication: ", error);
