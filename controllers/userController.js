@@ -131,7 +131,7 @@ const bookAppointment = async (req, res) => {
       return res.json({ success: false, message: "Doctor not available" });
     }
 
-    let slots_booked = docData.slots_booked;
+    let slots_booked = docData.slots_booked || {};
 
     // checking for slot availability
     if (slots_booked[slotDate]) {
@@ -206,13 +206,13 @@ const cancelAppointment = async (req, res) => {
     // releasing doctor slot
     const { docId, slotDate, slotTime } = appointmentData;
     const doctorData = await doctorModel.findById(docId);
-    let slots_booked = doctorData.slots_booked;
+    let slots_booked = doctorData.slots_booked || {};
 
     slots_booked[slotDate] = slots_booked[slotDate].filter(
       (e) => e != slotTime
     );
 
-    await doctorModel.findOneAndUpdate(docId, { slots_booked });
+    await doctorModel.findByIdAndUpdate(docId, { slots_booked });
 
     res.json({ success: true, message: "Appointment Cancelled" });
   } catch (error) {
